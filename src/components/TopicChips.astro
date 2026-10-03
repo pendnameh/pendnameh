@@ -1,0 +1,9 @@
+---
+import { getEntries, getCollection } from 'astro:content';
+import { url } from '../lib/site';
+interface Props { ids?: { collection: 'topics'; id: string }[]; }
+const topics = Astro.props.ids ? await getEntries(Astro.props.ids) : await getCollection('topics');
+---
+<div class="chips">
+  {topics.map((t) => <a class="chip" href={url(`konular/${t.id}/`)}>{t.data.name}</a>)}
+</div>

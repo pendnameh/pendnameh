@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import { url } from '../lib/site';
+
+interface Props { title?: string; description?: string; section?: 'home' | 'poets' | 'topics'; }
+const { title, description = 'Klasik Fars şiiri ve metinleri, Türkçe çevirileriyle.', section } = Astro.props;
+const fullTitle = title ? `${title} · Pendnameh` : 'Pendnameh — Farsça şiir, Türkçe okuma';
+const nav = [
+  { key: 'home', label: 'Ana Sayfa', href: url() },
+  { key: 'poets', label: 'Şairler', href: url('sairler/') },
+  { key: 'topics', label: 'Konular', href: url('konular/') },
+];
+---
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;700&family=Vazirmatn:wght@400;600&display=swap" />
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href={url()}><b>Pendnameh</b><span lang="fa">پندنامه</span></a>
+        <nav aria-label="Ana menü">
+          {nav.map((n) => <a href={n.href} aria-current={section === n.key ? 'page' : undefined}>{n.label}</a>)}
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+      <footer class="foot"><span>Pendnameh · Farsça şiir, Türkçe çeviri</span><span class="fa" lang="fa">پندنامه</span></footer>
+    </main>
+  </body>
+</html>

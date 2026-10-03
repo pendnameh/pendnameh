@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import { url, getPoems } from '../lib/site';
+const poets = await getCollection('poets');
+const poems = await getPoems();
+---
+<div class="poets">
+  {poets.map((p) => (
+    <a class="poet" href={url(`sairler/${p.id}/`)}>
+      <span class="fa-name" lang="fa">{p.data.fa.split(' ')[0]}</span>
+      <b>{p.data.name}</b>
+      <small>{p.data.years} · {poems.filter((x) => x.data.poet.id === p.id).length} eser</small>
+    </a>
+  ))}
+</div>

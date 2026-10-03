@@ -1,0 +1,15 @@
+---
+import { getEntry, type CollectionEntry } from 'astro:content';
+import { url, unitLabel } from '../lib/site';
+interface Props { poem: CollectionEntry<'poems'>; }
+const { poem } = Astro.props;
+const poet = await getEntry(poem.data.poet);
+---
+<a class="card" href={url(`siir/${poem.id}/`)}>
+  <div class="fa" lang="fa">{poem.data.stanzas[0].fa[0]}</div>
+  <div class="stack" style="gap:2px">
+    <h3>{poem.data.title}</h3>
+    <div class="meta">{poet?.data.name} · {poem.data.stanzas.length} {unitLabel(poem.data.kind)}</div>
+  </div>
+  <span class="go">Oku →</span>
+</a>

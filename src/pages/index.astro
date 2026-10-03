@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import PoemCard from '../components/PoemCard.astro';
+import PoetGrid from '../components/PoetGrid.astro';
+import TopicChips from '../components/TopicChips.astro';
+import { getPoems } from '../lib/site';
+const poems = (await getPoems()).slice(0, 10);
+---
+<Base section="home">
+  <div class="intro">
+    <div class="ornament" aria-hidden="true"></div>
+    <h1>Farsça şiir, Türkçe okuma</h1>
+    <p class="lede">Klasik Fars şairlerinden seçilmiş şiirler ve metinler, beyit beyit Türkçe çevirileriyle. İngilizce çeviriyi görmek için her beytin altındaki <b>EN</b> düğmesine dokunun.</p>
+  </div>
+  <section class="stack"><div class="eyebrow">Son eklenenler</div>{poems.map((p) => <PoemCard poem={p} />)}</section>
+  <section class="stack"><div class="eyebrow">Şairler</div><PoetGrid /></section>
+  <section class="stack"><div class="eyebrow">Konular</div><TopicChips /></section>
+</Base>

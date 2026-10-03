@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PoemCard from '../../components/PoemCard.astro';
+import { getPoems } from '../../lib/site';
+const topics = await getCollection('topics');
+const poems = await getPoems();
+---
+<Base title="Konular" section="topics">
+  <div class="intro"><h1>Konular</h1><p class="lede">Şiirleri temalarına göre keşfedin.</p></div>
+  {topics.map((t) => {
+    const list = poems.filter((p) => p.data.topics.some((x) => x.id === t.id));
+    return (
+      <section class="stack">
+        <h2>{t.data.name} <small>{list.length} eser</small></h2>
+        {list.length ? list.map((p) => <PoemCard poem={p} />) : <p class="lede">Bu konuda henüz eser yok.</p>}
+      </section>
+    );
+  })}
+</Base>

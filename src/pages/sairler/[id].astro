@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PoemCard from '../../components/PoemCard.astro';
+import { getPoems, url } from '../../lib/site';
+export async function getStaticPaths() {
+  return (await getCollection('poets')).map((poet) => ({ params: { id: poet.id }, props: { poet } }));
+}
+const { poet } = Astro.props;
+const poems = (await getPoems()).filter((p) => p.data.poet.id === poet.id);
+---
+<Base title={poet.data.name} section="poets" description={poet.data.bio}>
+  <a class="back" href={url('sairler/')}>← Şairler</a>
+  <div class="intro">
+    <div class="eyebrow">{poet.data.years} · {poet.data.place}</div>
+    <h1>{poet.data.name}</h1>
+    <div class="fa-name" lang="fa">{poet.data.fa}</div>
+    <p class="lede">{poet.data.bio}</p>
+  </div>
+  <section class="stack">
+    <div class="eyebrow">Eserleri</div>
+    {poems.length ? poems.map((p) => <PoemCard poem={p} />) : <p class="lede">Bu şairden henüz eser eklenmedi.</p>}
+  </section>
+</Base>

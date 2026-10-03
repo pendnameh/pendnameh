@@ -1,0 +1,43 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import TopicChips from '../../components/TopicChips.astro';
+import { getPoems, url, unitLabel } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const poems = await getPoems();
+  return poems.map((poem) => ({ params: { id: poem.id }, props: { poem } }));
+}
+const { poem } = Astro.props;
+const d = poem.data;
+const poet = await getEntry(d.poet);
+const { Content } = await render(poem);
+const hasNote = Boolean(poem.body?.trim());
+const unit = unitLabel(d.kind);
+---
+<Base title={d.title} description={`${poet?.data.name} — ${d.stanzas[0].tr.join(' ')}`}>
+  <a class="back" href={url()}>← Ana Sayfa</a>
+  <div class="poemhead">
+    <a class="eyebrow" href={url(`sairler/${d.poet.id}/`)}>{poet?.data.name}</a>
+    {d.faTitle && <div class="fa-name" lang="fa">{d.faTitle}</div>}
+    <h1>{d.title}</h1>
+    {d.source && <div class="source">{d.source}</div>}
+    {d.topics.length > 0 && <TopicChips ids={d.topics} />}
+  </div>
+  <div class={d.kind === 'metin' ? 'prose' : ''}>
+    {d.stanzas.map((s, i) => (
+      <article class="stanza">
+        <div class="num">{unit} {i + 1}</div>
+        <p class="persian" lang="fa" dir="rtl">{s.fa.map((l) => <span>{l}</span>)}</p>
+        <p class="turkish" lang="tr">{s.tr.map((l) => <span>{l}</span>)}</p>
+        {s.en && (
+          <details class="en">
+            <summary>EN · İngilizce</summary>
+            <p class="english" lang="en">{s.en.map((l) => <span>{l}</span>)}</p>
+          </details>
+        )}
+      </article>
+    ))}
+  </div>
+  {hasNote && <div class="note"><span class="eyebrow">Not</span><Content /></div>}
+</Base>

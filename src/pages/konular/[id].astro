@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PoemCard from '../../components/PoemCard.astro';
+import { getPoems, url } from '../../lib/site';
+export async function getStaticPaths() {
+  return (await getCollection('topics')).map((topic) => ({ params: { id: topic.id }, props: { topic } }));
+}
+const { topic } = Astro.props;
+const poems = (await getPoems()).filter((p) => p.data.topics.some((x) => x.id === topic.id));
+---
+<Base title={topic.data.name} section="topics">
+  <a class="back" href={url('konular/')}>← Konular</a>
+  <div class="intro"><div class="eyebrow">Konu</div><h1>{topic.data.name}</h1></div>
+  <section class="stack">{poems.map((p) => <PoemCard poem={p} />)}</section>
+</Base>

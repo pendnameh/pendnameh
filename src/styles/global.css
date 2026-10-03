@@ -1,0 +1,103 @@
+/* Pendnameh — single reading column like a manuscript page.
+   Persian block (RTL) above its Turkish rendering; English folded underneath. */
+:root {
+  --paper: #EEF0EA; --leaf: #F7F8F4; --ink: #1C2330; --muted: #5E6673;
+  --lapis: #2B4C7E; --tile: #2A7F7C; --gold: #9A7832; --rule: #D5D9CF;
+  --f-fa: "Vazirmatn", system-ui, sans-serif;
+  --f-tr: "Alegreya", Georgia, serif;
+  --f-ui: "Alegreya Sans", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #12161E; --leaf: #181D27; --ink: #E4E2DA; --muted: #9AA1AC;
+    --lapis: #8FAEDC; --tile: #5CC3BD; --gold: #D2AE63; --rule: #2A313D;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-tr); font-size: 18px; line-height: 1.6; }
+img { max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--tile); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 20px; padding-block: 0 64px; }
+
+/* header */
+.site { border-bottom: 1px solid var(--rule); background: var(--leaf); }
+.site .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-block: 18px; }
+.brand { display: flex; align-items: baseline; gap: 12px; }
+.brand b { font-weight: 700; font-size: 1.6rem; letter-spacing: .01em; }
+.brand span { font-family: var(--f-fa); color: var(--gold); font-size: 1.15rem; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; font-family: var(--f-ui); font-size: .95rem; }
+nav a { padding: 6px 12px; border-radius: 999px; color: var(--muted); }
+nav a:hover { color: var(--ink); }
+nav a[aria-current="page"] { color: var(--ink); background: var(--paper); box-shadow: inset 0 0 0 1px var(--rule); }
+
+/* type */
+.eyebrow { font-family: var(--f-ui); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--tile); font-weight: 700; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.35rem; }
+h2 small { font-family: var(--f-ui); color: var(--muted); font-weight: 400; font-size: .9rem; }
+.lede { color: var(--muted); max-width: 60ch; margin: 0; }
+.fa-name { font-family: var(--f-fa); color: var(--gold); direction: rtl; text-align: right; font-size: 1.25rem; line-height: 1.9; }
+section { margin-top: 40px; }
+.stack { display: grid; gap: 14px; }
+.intro { padding-block: 40px 8px; display: grid; gap: 12px; }
+.ornament { height: 14px; width: 120px; opacity: .8;
+  background: radial-gradient(circle at 7px 7px, var(--gold) 2.2px, transparent 2.6px) 0 0 / 20px 14px repeat-x; }
+.back { font-family: var(--f-ui); color: var(--muted); font-size: .95rem; display: inline-block; padding-top: 24px; }
+.back:hover { color: var(--ink); }
+
+/* chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--f-ui); font-size: .85rem; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); background: var(--leaf); }
+.chip:hover { border-color: var(--tile); color: var(--tile); }
+
+/* cards */
+.card { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; align-items: start; padding: 18px 20px; background: var(--leaf); border: 1px solid var(--rule); border-radius: 10px; }
+.card:hover { border-color: var(--tile); }
+.card .fa { grid-column: 1 / -1; font-family: var(--f-fa); direction: rtl; text-align: right; font-size: 1.15rem; line-height: 1.9; min-width: 0; }
+.card .meta { font-family: var(--f-ui); font-size: .9rem; color: var(--muted); }
+.card h3 { font-size: 1.15rem; }
+.card .go { font-family: var(--f-ui); color: var(--tile); font-size: .9rem; align-self: center; }
+
+.poets { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.poet { padding: 16px 18px; border-radius: 10px; border: 1px solid var(--rule); background: var(--leaf); display: grid; gap: 2px; }
+.poet:hover { border-color: var(--tile); }
+.poet small { font-family: var(--f-ui); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* poem page */
+.poemhead { padding-block: 16px 20px; display: grid; gap: 10px; border-bottom: 1px solid var(--rule); }
+.source { font-family: var(--f-ui); font-size: .9rem; color: var(--muted); }
+.stanza { padding-block: 28px; border-bottom: 1px solid var(--rule); display: grid; gap: 16px; }
+.stanza:last-of-type { border-bottom: 0; }
+.num { font-family: var(--f-ui); font-size: .75rem; color: var(--gold); letter-spacing: .12em; font-variant-numeric: tabular-nums; text-transform: uppercase; }
+.persian { direction: rtl; text-align: right; font-family: var(--f-fa); font-size: 1.4rem; line-height: 2; margin: 0; }
+.turkish { font-size: 1.15rem; line-height: 1.7; margin: 0; padding-left: 14px; border-left: 2px solid var(--tile); }
+.persian span, .turkish span, .english span { display: block; }
+.prose .persian span, .prose .turkish span, .prose .english span { display: inline; }
+.prose .persian span + span::before, .prose .turkish span + span::before, .prose .english span + span::before { content: " "; }
+
+details.en summary { list-style: none; cursor: pointer; font-family: var(--f-ui); font-size: .85rem; display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--rule); color: var(--lapis); background: var(--leaf); }
+details.en summary::-webkit-details-marker { display: none; }
+details.en summary:hover { border-color: var(--lapis); }
+details.en summary::before { content: "▸"; transition: transform .2s; }
+details.en[open] summary::before { transform: rotate(90deg); }
+.english { font-style: italic; color: var(--muted); font-size: 1.02rem; line-height: 1.65; margin: 12px 0 0; padding-left: 14px; border-left: 2px dashed var(--lapis); }
+
+.note { margin-top: 24px; padding: 16px 18px; border-radius: 10px; background: var(--leaf); border: 1px solid var(--rule); font-size: 1rem; }
+.note .eyebrow { color: var(--gold); display: block; margin-bottom: 4px; }
+.note p { margin: 0 0 .6em; } .note p:last-child { margin: 0; }
+
+footer.foot { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--rule); font-family: var(--f-ui); font-size: .85rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+footer.foot .fa { font-family: var(--f-fa); color: var(--gold); }
+
+@media (max-width: 480px) {
+  body { font-size: 17px; }
+  h1 { font-size: 1.7rem; }
+  .persian { font-size: 1.25rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

@@ -1,0 +1,9 @@
+# Konular. Anahtar (ör. "ask") şiir dosyalarında "topics:" listesinde kullanılır.
+ask:
+  name: Aşk
+ayrilik:
+  name: Ayrılık
+insanlik:
+  name: İnsanlık
+hikmet:
+  name: Hikmet

@@ -1,0 +1,21 @@
+# Her şair için bir kayıt. Anahtar (ör. "mevlana") şiir dosyalarında "poet:" alanında kullanılır.
+mevlana:
+  name: Mevlânâ Celâleddîn-i Rûmî
+  fa: مولانا جلال‌الدین محمد بلخی
+  years: 1207 – 1273
+  place: Belh · Konya
+  bio: Mesnevî ve Dîvân-ı Kebîr'in şairi. Hayatının büyük kısmını Konya'da geçirdi; eserleri Anadolu'da yüzyıllardır okunuyor.
+
+sadi:
+  name: Sa'dî-i Şîrâzî
+  fa: سعدی شیرازی
+  years: y. 1210 – 1291
+  place: Şiraz
+  bio: Gülistan ve Bostan'ın yazarı. Osmanlı medreselerinde Farsça bu iki kitapla öğretilirdi.
+
+hafiz:
+  name: Hâfız-ı Şîrâzî
+  fa: حافظ شیرازی
+  years: y. 1325 – 1390
+  place: Şiraz
+  bio: Gazelin ustası. Dîvân'ı Osmanlı döneminde Sûdî-i Bosnevî gibi şârihler tarafından satır satır şerh edildi.
