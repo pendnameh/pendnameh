@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import PoemCard from '../../components/PoemCard.astro';
+import { getPoems, bookOf } from '../../lib/site';
+const texts = (await getPoems()).filter((p) => p.data.kind === 'metin');
+// group by book, keeping newest-first order inside each book
+const books = new Map<string, typeof texts>();
+for (const t of texts) {
+  const b = bookOf(t.data);
+  books.set(b, [...(books.get(b) ?? []), t]);
+}
+---
+<Base title="İrfânî Metinler" section="texts" description="Tasavvuf klasiklerinden seçilmiş metinler, Farsça asılları ve Türkçe çevirileriyle.">
+  <div class="intro">
+    <div class="ornament" aria-hidden="true"></div>
+    <h1>İrfânî Metinler</h1>
+    <p class="lede">Tasavvuf klasiklerinden seçilmiş metinler, Farsça asılları ve Türkçe çevirileriyle. Kitaplara göre sıralanmıştır.</p>
+  </div>
+  {texts.length === 0 && <p class="lede">Henüz metin eklenmedi.</p>}
+  {[...books].map(([book, list]) => (
+    <section class="stack">
+      <h2>{book} <small>{list.length} metin</small></h2>
+      {list.map((p) => <PoemCard poem={p} />)}
+    </section>
+  ))}
+</Base>

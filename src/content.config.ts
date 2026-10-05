@@ -31,6 +31,7 @@ const poems = defineCollection({
     poet: reference('poets'),
     kind: z.enum(['siir', 'metin']).default('siir'),
     source: z.string().optional(),
+    book: z.string().optional(),               // metinler için kitap adı (ör. Temhîdât)
     date: z.coerce.date(),
     topics: z.array(reference('topics')).default([]),
     draft: z.boolean().default(false),

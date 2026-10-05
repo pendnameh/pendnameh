@@ -11,3 +11,11 @@ export async function getPoems() {
 }
 
 export const unitLabel = (kind: 'siir' | 'metin') => (kind === 'siir' ? 'beyit' : 'paragraf');
+
+/** Link to a poem or text page, depending on its kind. */
+export const itemUrl = (item: { id: string; data: { kind: 'siir' | 'metin' } }) =>
+  url(`${item.data.kind === 'metin' ? 'metin' : 'siir'}/${item.id}/`);
+
+/** Book a text belongs to: `book`, else the part of `source` before the first comma. */
+export const bookOf = (d: { book?: string; source?: string }) =>
+  d.book ?? d.source?.split(',')[0].trim() ?? 'Diğer';

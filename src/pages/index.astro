@@ -3,16 +3,25 @@ import Base from '../layouts/Base.astro';
 import PoemCard from '../components/PoemCard.astro';
 import PoetGrid from '../components/PoetGrid.astro';
 import TopicChips from '../components/TopicChips.astro';
-import { getPoems } from '../lib/site';
-const poems = (await getPoems()).slice(0, 10);
+import { getPoems, url } from '../lib/site';
+const all = await getPoems();
+const poems = all.filter((p) => p.data.kind === 'siir').slice(0, 10);
+const texts = all.filter((p) => p.data.kind === 'metin').slice(0, 5);
 ---
 <Base section="home">
   <div class="intro">
     <div class="ornament" aria-hidden="true"></div>
     <h1>Farsça şiir, Türkçe okuma</h1>
-    <p class="lede">Klasik Fars şairlerinden seçilmiş şiirler ve metinler, beyit beyit Türkçe çevirileriyle. İngilizce çeviriyi görmek için her beytin altındaki <b>EN</b> düğmesine dokunun.</p>
+    <p class="lede">Klasik Fars şairlerinden seçilmiş şiirler ve irfânî metinler, Türkçe çevirileriyle. İngilizce çeviriyi görmek için her beytin altındaki <b>EN</b> düğmesine dokunun.</p>
   </div>
-  <section class="stack"><div class="eyebrow">Son eklenenler</div>{poems.map((p) => <PoemCard poem={p} />)}</section>
+  <section class="stack"><div class="eyebrow">Son eklenen şiirler</div>{poems.map((p) => <PoemCard poem={p} />)}</section>
+  {texts.length > 0 && (
+    <section class="stack">
+      <div class="eyebrow">İrfânî Metinler</div>
+      {texts.map((p) => <PoemCard poem={p} />)}
+      <a class="go-all" href={url('metinler/')}>Tüm metinler →</a>
+    </section>
+  )}
   <section class="stack"><div class="eyebrow">Şairler</div><PoetGrid /></section>
   <section class="stack"><div class="eyebrow">Konular</div><TopicChips /></section>
 </Base>

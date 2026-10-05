@@ -5,12 +5,12 @@ import PoemView from '../../components/PoemView.astro';
 import { getPoems } from '../../lib/site';
 
 export async function getStaticPaths() {
-  const poems = (await getPoems()).filter((p) => p.data.kind === 'siir');
-  return poems.map((poem) => ({ params: { id: poem.id }, props: { poem } }));
+  const texts = (await getPoems()).filter((p) => p.data.kind === 'metin');
+  return texts.map((poem) => ({ params: { id: poem.id }, props: { poem } }));
 }
 const { poem } = Astro.props;
 const poet = await getEntry(poem.data.poet);
 ---
-<Base title={poem.data.title} section="home" description={`${poet?.data.name} — ${poem.data.stanzas[0].tr.join(' ')}`}>
+<Base title={poem.data.title} section="texts" description={`${poet?.data.name} — ${poem.data.stanzas[0].tr.join(' ').slice(0, 150)}`}>
   <PoemView poem={poem} />
 </Base>

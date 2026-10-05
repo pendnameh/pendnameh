@@ -2,7 +2,7 @@
 title: Âdetperestlikten Kurtul
 poet: aynulkudat
 kind: metin
-source: Temhîdât
+book: Temhîdât
 date: 2026-10-04
 topics: [hikmet, ask, tasavvuf]
 stanzas:

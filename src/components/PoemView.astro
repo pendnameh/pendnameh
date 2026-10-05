@@ -1,0 +1,37 @@
+---
+import { getEntry, render, type CollectionEntry } from 'astro:content';
+import TopicChips from './TopicChips.astro';
+import { url, unitLabel, bookOf } from '../lib/site';
+interface Props { poem: CollectionEntry<'poems'>; }
+const { poem } = Astro.props;
+const d = poem.data;
+const poet = await getEntry(d.poet);
+const { Content } = await render(poem);
+const hasNote = Boolean(poem.body?.trim());
+const unit = unitLabel(d.kind);
+const isText = d.kind === 'metin';
+---
+{isText ? <a class="back" href={url('metinler/')}>← İrfânî Metinler</a> : <a class="back" href={url()}>← Ana Sayfa</a>}
+<div class="poemhead">
+  <a class="eyebrow" href={url(`sairler/${d.poet.id}/`)}>{poet?.data.name}</a>
+  {d.faTitle && <div class="fa-name" lang="fa">{d.faTitle}</div>}
+  <h1>{d.title}</h1>
+  {isText ? <div class="source">{bookOf(d)}{d.book && d.source ? ` · ${d.source}` : ''}</div> : d.source && <div class="source">{d.source}</div>}
+  {d.topics.length > 0 && <TopicChips ids={d.topics} />}
+</div>
+<div class={isText ? 'prose' : ''}>
+  {d.stanzas.map((s, i) => (
+    <article class="stanza">
+      {d.stanzas.length > 1 && <div class="num">{unit} {i + 1}</div>}
+      <p class="persian" lang="fa" dir="rtl">{s.fa.map((l) => <span>{l}</span>)}</p>
+      <p class="turkish" lang="tr">{s.tr.map((l) => <span>{l}</span>)}</p>
+      {s.en && (
+        <details class="en">
+          <summary>EN · İngilizce</summary>
+          <p class="english" lang="en">{s.en.map((l) => <span>{l}</span>)}</p>
+        </details>
+      )}
+    </article>
+  ))}
+</div>
+{hasNote && <div class="note"><span class="eyebrow">Not</span><Content /></div>}

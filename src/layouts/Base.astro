@@ -2,11 +2,12 @@
 import '../styles/global.css';
 import { url } from '../lib/site';
 
-interface Props { title?: string; description?: string; section?: 'home' | 'poets' | 'topics'; }
+interface Props { title?: string; description?: string; section?: 'home' | 'texts' | 'poets' | 'topics'; }
 const { title, description = 'Klasik Fars şiiri ve metinleri, Türkçe çevirileriyle.', section } = Astro.props;
 const fullTitle = title ? `${title} · Pendnameh` : 'Pendnameh — Farsça şiir, Türkçe okuma';
 const nav = [
   { key: 'home', label: 'Ana Sayfa', href: url() },
+  { key: 'texts', label: 'İrfânî Metinler', href: url('metinler/') },
   { key: 'poets', label: 'Şairler', href: url('sairler/') },
   { key: 'topics', label: 'Konular', href: url('konular/') },
 ];

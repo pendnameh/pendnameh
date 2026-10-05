@@ -101,3 +101,5 @@ footer.foot .fa { font-family: var(--f-fa); color: var(--gold); }
   .persian { font-size: 1.25rem; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.go-all { font-family: var(--f-ui); color: var(--tile); font-size: .95rem; justify-self: start; }
+.go-all:hover { text-decoration: underline; }
