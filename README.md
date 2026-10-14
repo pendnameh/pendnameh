@@ -24,11 +24,11 @@ npm run build      # production build into dist/
    |---|---|---|
    | `title` | yes | Turkish title |
    | `faTitle` | no | Persian title |
-   | `poet` | yes | key from `src/data/poets.yaml` |
+   | `poet` | yes | file name (without `.yaml`) in `src/content/poets/` |
    | `kind` | no | `siir` (couplets, default) or `metin` (prose paragraphs) |
    | `source` | no | e.g. `Dîvân, 12. gazel` |
-   | `date` | yes | `YYYY-MM-DD`; newest appears first on the home page |
-   | `topics` | no | keys from `src/data/topics.yaml` |
+   | `date` | yes | `YYYY-MM-DD` or `YYYY-MM-DDTHH:MM` — the newest piece is shown in full at the top of the home page |
+   | `topics` | no | file names (without `.yaml`) in `src/content/topics/` |
    | `draft` | no | `true` hides it from the live site |
    | `stanzas` | yes | list of `fa` / `tr` / `en` blocks, one line per verse line; `en` is optional |
 
@@ -56,8 +56,9 @@ stanzas:
 
 ## Add a poet or topic
 
-- Poets: add an entry to `src/data/poets.yaml` (`name`, `fa`, `years`, `place`, `bio`). A poet page is created automatically.
-- Topics: add an entry to `src/data/topics.yaml` (`name`).
+- Poets: add one file `src/content/poets/<key>.yaml` (copy `_sablon-sair.yaml`). A poet page is created automatically.
+- Topics: add one file `src/content/topics/<key>.yaml` containing `name: Konu Adı`.
+- Contact info for the Hakkımızda page: `src/data/site.yaml`. Empty lines are hidden.
 
 ## Deploy
 
